@@ -14,7 +14,7 @@ class PersonDetector:
     """Lightweight person detector using OpenCV's HOG + SVM"""
     
     def __init__(self):
-        print("🔧 Initializing HOG Person Detector...")
+        print(" Initializing HOG Person Detector...")
         
         # Initialize HOG descriptor/person detector
         self.hog = cv2.HOGDescriptor()
@@ -61,7 +61,7 @@ class PersonDetector:
         for (x, y, w, h) in boxes:
             detection_boxes.append((x, y, x + w, y + h))
         
-        print(f"   🔍 Detected {len(detection_boxes)} person(s)")
+        print(f"    Detected {len(detection_boxes)} person(s)")
         return detection_boxes
     
     def draw_detections(self, frame, boxes):
@@ -86,7 +86,7 @@ class PersonDetector:
 
 def test_detector_on_video(video_path):
     """Test the detector on a video file"""
-    print(f"\n🎬 Testing detector on video: {video_path}")
+    print(f"\n Testing detector on video: {video_path}")
     
     # Initialize detector
     detector = PersonDetector()
@@ -95,7 +95,7 @@ def test_detector_on_video(video_path):
     cap = cv2.VideoCapture(video_path)
     
     if not cap.isOpened():
-        print(f"❌ Error: Could not open video {video_path}")
+        print(f" Error: Could not open video {video_path}")
         print("   Make sure the video file exists and is in a supported format")
         return
     
@@ -105,7 +105,7 @@ def test_detector_on_video(video_path):
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     
-    print(f"📊 Video properties:")
+    print(f" Video properties:")
     print(f"   - Resolution: {width}x{height}")
     print(f"   - FPS: {fps}")
     print(f"   - Total frames: {total_frames}")
@@ -114,13 +114,13 @@ def test_detector_on_video(video_path):
     frame_count = 0
     detections_log = []
     
-    print(f"\n🔍 Starting detection...")
+    print(f"\n Starting detection...")
     print("Press 'q' to quit, 's' to save current frame")
     
     while True:
         ret, frame = cap.read()
         if not ret:
-            print("📽️ Reached end of video")
+            print("Reached end of video")
             break
         
         # Calculate timestamp
@@ -130,7 +130,7 @@ def test_detector_on_video(video_path):
         try:
             detection_boxes = detector.detect_persons(frame)
         except Exception as e:
-            print(f"⚠️ Detection error on frame {frame_count}: {e}")
+            print(f" Detection error on frame {frame_count}: {e}")
             detection_boxes = []
         
         # Draw detections
@@ -159,13 +159,13 @@ def test_detector_on_video(video_path):
         # Handle key presses
         key = cv2.waitKey(30) & 0xFF
         if key == ord('q'):
-            print("⏹️ Stopped by user")
+            print(" Stopped by user")
             break
         elif key == ord('s'):
             # Save current frame
             save_name = f"detection_frame_{frame_count}.jpg"
             cv2.imwrite(save_name, annotated_frame)
-            print(f"💾 Saved frame as {save_name}")
+            print(f" Saved frame as {save_name}")
         
         frame_count += 1
         
@@ -173,7 +173,7 @@ def test_detector_on_video(video_path):
         update_interval = 10 if total_frames < 300 else 30
         if frame_count % update_interval == 0:
             progress = (frame_count / total_frames) * 100
-            print(f"⏳ Progress: {progress:.1f}% - Frame {frame_count}/{total_frames}")
+            print(f" Progress: {progress:.1f}% - Frame {frame_count}/{total_frames}")
     
     # Cleanup
     cap.release()
@@ -184,7 +184,7 @@ def test_detector_on_video(video_path):
     avg_detections = total_detections / len(detections_log) if detections_log else 0
     frames_with_detections = sum(1 for log in detections_log if log['detections'] > 0)
     
-    print(f"\n📈 DETECTION SUMMARY:")
+    print(f"\n DETECTION SUMMARY:")
     print(f"   - Total frames processed: {frame_count}")
     print(f"   - Total person detections: {total_detections}")
     print(f"   - Average detections per frame: {avg_detections:.1f}")
@@ -239,13 +239,13 @@ def test_detector_on_webcam():
         # Handle key presses
         key = cv2.waitKey(1) & 0xFF
         if key == ord('q'):
-            print("⏹️ Webcam test stopped by user")
+            print(" Webcam test stopped by user")
             break
         elif key == ord('s'):
             # Save current frame
             save_name = f"webcam_detection_{frame_count}.jpg"
             cv2.imwrite(save_name, annotated_frame)
-            print(f"💾 Saved frame as {save_name}")
+            print(f"Saved frame as {save_name}")
         
         frame_count += 1
     

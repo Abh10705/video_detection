@@ -9,7 +9,7 @@ class PersonDetector:
     """Lightweight person detector using OpenCV's HOG + SVM"""
     
     def __init__(self):
-        print("🔧 Initializing HOG Person Detector...")
+        print(" Initializing HOG Person Detector...")
         
         # Initialize HOG descriptor/person detector
         self.hog = cv2.HOGDescriptor()
@@ -53,7 +53,7 @@ class SimpleTracker:
     """Simple centroid-based tracker for individual person tracking"""
     
     def __init__(self, max_disappeared=30, max_distance=100):
-        print("🔧 Initializing Simple Tracker...")
+        print(" Initializing Simple Tracker...")
         
         # Initialize the next unique object ID 
         self.next_id = 1
@@ -227,7 +227,7 @@ class VideoAnalyzer:
     """Main class that combines detection, individual tracking, and timestamp logging"""
     
     def __init__(self, max_disappeared=30, max_distance=100):
-        print("🔧 Initializing Video Analyzer with Individual Tracking...")
+        print(" Initializing Video Analyzer with Individual Tracking...")
         
         # Initialize detector and tracker
         self.detector = PersonDetector()
@@ -241,7 +241,7 @@ class VideoAnalyzer:
     
     def process_video(self, video_path, output_path=None, show_video=True):
         """Process entire video with individual person tracking and timestamps"""
-        print(f"\n🎬 Processing video with individual tracking: {video_path}")
+        print(f"\n Processing video with individual tracking: {video_path}")
         
         # Open video
         cap = cv2.VideoCapture(video_path)
@@ -255,7 +255,7 @@ class VideoAnalyzer:
         frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         
-        print(f"📊 Video properties:")
+        print(f"Video properties:")
         print(f"   - Resolution: {frame_width}x{frame_height}")
         print(f"   - FPS: {fps}")
         print(f"   - Total frames: {total_frames}")
@@ -267,18 +267,18 @@ class VideoAnalyzer:
             fourcc = cv2.VideoWriter_fourcc(*'mp4v')
             out_video = cv2.VideoWriter(f"{output_path}.mp4", fourcc, fps, 
                                       (frame_width, frame_height))
-            print(f"💾 Output video will be saved as: {output_path}.mp4")
+            print(f"Output video will be saved as: {output_path}.mp4")
         
         frame_count = 0
         self.start_time = datetime.datetime.now()
         
-        print(f"\n🔍 Starting individual tracking...")
+        print(f"\n Starting individual tracking...")
         print("Press 'q' to quit, 's' to save current frame")
         
         while True:
             ret, frame = cap.read()
             if not ret:
-                print("📽️ Reached end of video")
+                print(" Reached end of video")
                 break
             
             # Calculate timestamp for this frame
@@ -326,13 +326,13 @@ class VideoAnalyzer:
                 # Handle key presses
                 key = cv2.waitKey(30) & 0xFF
                 if key == ord('q'):
-                    print("⏹️ Stopped by user")
+                    print(" Stopped by user")
                     break
                 elif key == ord('s'):
                     # Save current frame
                     save_name = f"tracking_frame_{frame_count}.jpg"
                     cv2.imwrite(save_name, annotated_frame)
-                    print(f"💾 Saved frame as {save_name}")
+                    print(f"Saved frame as {save_name}")
             
             frame_count += 1
             
@@ -342,7 +342,7 @@ class VideoAnalyzer:
                 progress = (frame_count / total_frames) * 100
                 active_count = len(tracked_objects)
                 total_seen = self.tracker.next_id - 1
-                print(f"⏳ Progress: {progress:.1f}% | Active: {active_count} | Total seen: {total_seen}")
+                print(f" Progress: {progress:.1f}% | Active: {active_count} | Total seen: {total_seen}")
         
         # Cleanup
         cap.release()
@@ -415,7 +415,7 @@ class VideoAnalyzer:
     
     def save_tracking_results(self, output_path):
         """Save comprehensive tracking results"""
-        print(f"\n💾 Saving tracking results...")
+        print(f"\n Saving tracking results...")
         
         # Save detailed frame logs as JSON
         with open(f"{output_path}_frames.json", 'w') as f:
@@ -461,9 +461,9 @@ class VideoAnalyzer:
         active_persons = len([p for p in all_persons.values() if p['status'] == 'active'])
         left_persons = len([p for p in all_persons.values() if p['status'] == 'left'])
         
-        print(f"\n🎉 INDIVIDUAL TRACKING COMPLETE!")
+        print(f"\n INDIVIDUAL TRACKING COMPLETE!")
         print(f"=" * 45)
-        print(f"📊 Final Statistics:")
+        print(f" Final Statistics:")
         print(f"   - Total frames processed: {total_frames_processed}")
         print(f"   - Unique individuals detected: {len(all_persons)}")
         print(f"   - Still active: {active_persons}")
@@ -474,7 +474,7 @@ class VideoAnalyzer:
             print(f"   - Average time per person: {avg_duration:.1f}s")
         
         # Show first few people for verification
-        print(f"\n👥 Individual Person Summary:")
+        print(f"\n Individual Person Summary:")
         for i, (person_id, data) in enumerate(list(all_persons.items())[:5]):
             duration = data.get('total_duration', 
                               (data['last_seen'] - data['first_seen']).total_seconds())
@@ -494,7 +494,7 @@ class VideoAnalyzer:
 
 def main():
     """Main function to run individual tracking"""
-    print("🎯 INDIVIDUAL PERSON TRACKING SYSTEM")
+    print("INDIVIDUAL PERSON TRACKING SYSTEM")
     print("=" * 40)
     print("1. Test on video file")
     print("2. Exit")
@@ -528,12 +528,12 @@ def main():
             print(f"   - {output_path}.mp4")
             
         except KeyboardInterrupt:
-            print("\n⏹️ Processing interrupted by user")
+            print("\n Processing interrupted by user")
         except Exception as e:
             print(f"\n❌ Error: {str(e)}")
     
     elif choice == '2':
-        print("👋 Goodbye!")
+        print(" Goodbye!")
     else:
         print("❌ Invalid choice")
 

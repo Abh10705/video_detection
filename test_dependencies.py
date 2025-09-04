@@ -40,14 +40,14 @@ def test_dependencies():
             if install_name != 'built-in':
                 missing_packages.append(install_name)
         except Exception as e:
-            print(f"⚠️ {package} imported but error: {e}")
+            print(f" {package} imported but error: {e}")
     
     if missing_packages:
-        print(f"\n📦 To install missing packages:")
+        print(f"\n To install missing packages:")
         print(f"pip install {' '.join(missing_packages)}")
         return False
     else:
-        print("\n🎉 PHASE 1 COMPLETE!")
+        print("\nPHASE 1 COMPLETE!")
         print("All dependencies are working correctly.")
         print("Ready to move to Phase 2: Basic Person Detection")
         return True

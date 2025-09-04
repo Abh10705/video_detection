@@ -4,7 +4,7 @@ import numpy as np
 
 def simple_hog_test():
     """Simple test of HOG person detection"""
-    print("🔧 Testing HOG Person Detection...")
+    print(" Testing HOG Person Detection...")
     
     try:
         # Initialize HOG detector
@@ -21,7 +21,7 @@ def simple_hog_test():
         boxes, weights = hog.detectMultiScale(gray)
         print(f"✅ Detection completed - found {len(boxes)} objects")
         
-        print("\n🎉 PHASE 2 BASIC TEST PASSED!")
+        print("\n PHASE 2 BASIC TEST PASSED!")
         print("HOG detection is working correctly")
         print("Ready to test on real video!")
         
